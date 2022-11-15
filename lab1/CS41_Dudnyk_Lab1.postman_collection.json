@@ -1,0 +1,662 @@
+{
+	"info": {
+		"_postman_id": "1ba95a8f-b9f6-4792-93e9-f1eb52ef809f",
+		"name": "CS41_Dudnyk_Lab1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01_StatusOK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('HTTP status code is 200', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?userId={{uid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{uid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_UserID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('User ID matches the collection variable', () => {\r",
+							"    pm.expect(pm.response.json().args.userId).to.eql(pm.collectionVariables.get('uid'))\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?userId={{uid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{uid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03_ContentType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Content Type matches JSON', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8')\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?userId={{uid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{uid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04_ResponseTime",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response time is less than 250ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(250)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?userId={{uid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{uid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05_Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Login matches', () => {\r",
+							"    let j = pm.response.json();\r",
+							"    pm.expect(j.args.userId).to.eql(pm.collectionVariables.get('uid'))\r",
+							"    pm.expect(j.args.login).to.eql('Stas')\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?userId={{uid}}&login=Stas",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{uid}}"
+						},
+						{
+							"key": "login",
+							"value": "Stas"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06_Schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {\r",
+							"    'properties': {\r",
+							"        'userId': {\r",
+							"            'type': 'string'\r",
+							"        },\r",
+							"        'login': {\r",
+							"            'type': 'string'\r",
+							"        },\r",
+							"    },\r",
+							"    'required': [\r",
+							"        'userId', 'login'\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', () => {\r",
+							"    pm.expect(tv4.validate(pm.response.json().args, schema)).to.be.true\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?userId={{uid}}&login=Stas",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{uid}}"
+						},
+						{
+							"key": "login",
+							"value": "Stas"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "07_PostText",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('data', 'The answer to life the universe and everything = 42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "The answer to life the universe and everything = 42"
+				},
+				"url": {
+					"raw": "{{baseURL}}/post",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "08_PostForm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('form.answer', '42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "answer",
+							"value": "42",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/post",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "09_Put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('data', 'The answer to life the universe and everything = 42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "The answer to life the universe and everything = 42"
+				},
+				"url": {
+					"raw": "{{baseURL}}/put",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"put"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10_Patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('data', 'The answer to life the universe and everything = 42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "The answer to life the universe and everything = 42"
+				},
+				"url": {
+					"raw": "{{baseURL}}/patch",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"patch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11_Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('data', 'The answer to life the universe and everything = 42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "The answer to life the universe and everything = 42"
+				},
+				"url": {
+					"raw": "{{baseURL}}/delete",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12_Header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('headers.answer', '42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "answer",
+						"value": "42",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/headers",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"headers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13_CookiesSet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is 200 or 302', () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 302])\r",
+							"})\r",
+							"\r",
+							"pm.test('The cookie is valid', () => {\r",
+							"    pm.expect(pm.cookies.toObject()).to.have.property('userid', '42')\r",
+							"})\r",
+							"\r",
+							"pm.test('Response body is valid', () => {\r",
+							"    if (pm.response.code === 200) {\r",
+							"        pm.response.to.have.jsonBody('cookies.userId', '42')\r",
+							"    }\r",
+							"    else {\r",
+							"        pm.response.to.have.body('Found. Redirecting to /cookies');\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/cookies/set?userId=42",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cookies",
+						"set"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "42"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14_CookiesGet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is OK', () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('The cookie is valid', () => {\r",
+							"    pm.expect(pm.cookies.toObject()).to.have.property('userid', '42')\r",
+							"})\r",
+							"\r",
+							"pm.test('Response body is valid', () => {\r",
+							"    pm.response.to.have.jsonBody('cookies.userId', '42')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/cookies",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cookies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15_CookiesDelete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response is 200 or 302', () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 302])\r",
+							"})\r",
+							"\r",
+							"pm.test('The cookie is valid', () => {\r",
+							"    pm.expect(pm.cookies.toObject()).to.not.have.property('userid')\r",
+							"})\r",
+							"\r",
+							"pm.test('Response body is valid', () => {\r",
+							"    if (pm.response.code === 200) {\r",
+							"        pm.response.to.not.have.jsonBody('cookies.userId')\r",
+							"    }\r",
+							"    else {\r",
+							"        pm.response.to.have.body('Found. Redirecting to /cookies');\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/cookies/delete?userId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cookies",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://postman-echo.com"
+		},
+		{
+			"key": "uid",
+			"value": "42"
+		}
+	]
+}

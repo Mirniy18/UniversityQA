@@ -1,0 +1,79 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://lab3.com/dudnyk"
+           targetNamespace="http://lab3.com/dudnyk" elementFormDefault="qualified">
+
+    <xs:element name="getDoctorsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="doctors" type="tns:doctor" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getWindowsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="doctor_id" type="xs:int"/>
+                <xs:element name="start" type="xs:dateTime"/>
+                <xs:element name="stop" type="xs:dateTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getWindowsResponce">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="windows" type="tns:appointmentTime" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="putAppointmentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="doctor_id" type="xs:int"/>
+                <xs:element name="patient" type="xs:string"/>
+                <xs:element name="time" type="tns:appointmentTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="putAppointmentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="delAppointmentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="doctor_id" type="xs:int"/>
+                <xs:element name="appointment_id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="appointment">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="patient" type="xs:string"/>
+            <xs:element name="date" type="tns:appointmentTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="appointmentTime">
+        <xs:sequence>
+            <xs:element name="time" type="xs:dateTime"/>
+            <xs:element name="durationMinutes" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="doctor">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="first_name" type="xs:string"/>
+            <xs:element name="last_name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
